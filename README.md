@@ -1,6 +1,10 @@
 # flet-image-gallery-saver
 FletImageGallerySaver control for Flet
 
+## Compatibility
+
+Compatible only with iOS and Android.
+
 ## Installation
 
 Add dependency to `pyproject.toml` of your Flet app:
@@ -11,20 +15,16 @@ Link to git repository:
 
 ```
 dependencies = [
-  "flet-image-gallery-saver @ git+https://github.com/MyGithubAccount/flet-image-gallery-saver",
+  "flet-image-gallery-saver @ git+https://github.com/ositoMalvado/image-gallery",
   "flet>=0.28.2",
 ]
 ```
 
-* **PyPi dependency**  
-
-If the package is published on pypi.org:
+## Permission required
 
 ```
-dependencies = [
-  "flet-image-gallery-saver",
-  "flet>=0.28.2",
-]
+[tool.flet]
+permissions = ["photo_library"]
 ```
 
 Build your app:
@@ -34,4 +34,4 @@ flet build macos -v
 
 ## Documentation
 
-[Link to documentation](https://MyGithubAccount.github.io/flet-image-gallery-saver/)
+[Link to documentation](https://ositoMalvado.github.io/image-gallery/)
