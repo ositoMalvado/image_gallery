@@ -1,44 +1,45 @@
 import flet as ft
-import requests
 from io import BytesIO
-from flet_image_gallery_saver import FletImageGallerySaver
+from flet_image_gallery_saver import ImageGallerySaver
 
 
 def main(page: ft.Page):
-    page.title = "Ejemplo de FletImageGallerySaver"
+    page.title = "ImageGallerySaver Example"
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.padding = 20
 
-    # Crear un control de texto para mostrar mensajes
-    status_text = ft.Text("Estado: Listo para guardar imágenes", size=16)
+    # Create a text control to display messages
+    status_text = ft.Text("Status: Ready to save images", size=16)
 
-    # Crear una instancia del control FletImageGallerySaver
-    gallery_saver = FletImageGallerySaver()
+    # Create an instance of ImageGallerySaver control
+    gallery_saver = ImageGallerySaver()
+    # Insert the control in overlay, as it's a non-visual control
+    page.overlay.append(gallery_saver)
 
-    # Función para manejar cuando se completa el guardado
+    # Function to handle when saving is completed
     def on_save_completed(e):
-        status_text.value = f"✅ Guardado completado: {e.data}"
+        status_text.value = f"✅ Save completed: {e.data}"
         status_text.color = ft.Colors.GREEN
         page.update()
 
-    # Función para manejar cuando falla el guardado
+    # Function to handle when saving fails
     def on_save_failed(e):
-        status_text.value = f"❌ Error al guardar: {e.data}"
+        status_text.value = f"❌ Error saving: {e.data}"
         status_text.color = ft.Colors.RED
         page.update()
 
-    # Asignar los manejadores de eventos
+    # Assign event handlers
     gallery_saver.on_save_completed = on_save_completed
     gallery_saver.on_save_failed = on_save_failed
 
-    # Función para guardar una imagen de ejemplo desde bytes
+    # Function to save a sample image from bytes
     def save_sample_image(e):
-        status_text.value = "Guardando imagen de ejemplo..."
+        status_text.value = "Saving sample image..."
         status_text.color = ft.Colors.BLUE
         page.update()
 
-        # Crear una imagen de ejemplo (un cuadrado rojo)
+        # Create a sample image (a red square)
         try:
             from PIL import Image
 
@@ -47,82 +48,89 @@ def main(page: ft.Page):
             img.save(buffer, format="JPEG")
             image_bytes = buffer.getvalue()
 
-            # Guardar la imagen
+            # Save the image
             gallery_saver.save_image(
-                image_bytes=image_bytes, quality=90, name="cuadrado_rojo.jpg"
+                image_bytes=image_bytes, quality=90, name="red_square.jpg"
             )
         except ImportError:
-            status_text.value = "❌ Error: Se requiere la biblioteca PIL/Pillow"
+            status_text.value = "❌ Error: PIL/Pillow library is required"
             status_text.color = ft.Colors.RED
             page.update()
 
-    # Función para guardar una imagen desde URL
+    # Function to save an image from URL
     def save_image_from_url(e):
-        status_text.value = "Descargando imagen desde URL..."
-        status_text.color = ft.Colors.BLUE
-        page.update()
-
         try:
-            # URL de una imagen de ejemplo
-            url = "https://picsum.photos/200"
-            response = requests.get(url)
-            if response.status_code == 200:
-                # Guardar la imagen descargada
-                gallery_saver.save_image(
-                    image_bytes=response.content,
-                    quality=85,
-                    name="imagen_desde_url.jpg",
-                )
-            else:
-                status_text.value = (
-                    f"❌ Error al descargar la imagen: {response.status_code}"
-                )
+            import requests
+
+            status_text.value = "Downloading image from URL..."
+            status_text.color = ft.Colors.BLUE
+            page.update()
+
+            try:
+                # Sample image URL
+                url = "https://picsum.photos/200"
+                response = requests.get(url)
+                if response.status_code == 200:
+                    # Save the downloaded image
+                    gallery_saver.save_image(
+                        image_bytes=response.content,
+                        quality=85,
+                        name="image_from_url.jpg",
+                    )
+                else:
+                    status_text.value = (
+                        f"❌ Error downloading image: {response.status_code}"
+                    )
+                    status_text.color = ft.Colors.RED
+                    page.update()
+            except Exception as ex:
+                status_text.value = f"❌ Error: {str(ex)}"
                 status_text.color = ft.Colors.RED
                 page.update()
-        except Exception as ex:
-            status_text.value = f"❌ Error: {str(ex)}"
+
+        except ImportError:
+            status_text.value = "❌ Error: requests library is required"
             status_text.color = ft.Colors.RED
             page.update()
 
-    # Crear botones para las acciones
+    # Create buttons for actions
     btn_save_sample = ft.ElevatedButton(
-        "Guardar imagen de ejemplo",
+        "Save Sample Image",
         icon=ft.Icons.IMAGE,
         on_click=save_sample_image,
         style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=10)),
     )
 
     btn_save_from_url = ft.ElevatedButton(
-        "Guardar imagen desde URL",
+        "Save Image from URL",
         icon=ft.Icons.CLOUD_DOWNLOAD,
         on_click=save_image_from_url,
         style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=10)),
     )
 
-    # Crear la interfaz
+    # Create the interface
     page.add(
         ft.Container(
             content=ft.Column(
                 [
                     ft.Text(
-                        "Ejemplo de FletImageGallerySaver",
+                        "ImageGallerySaver Example",
                         size=24,
                         weight=ft.FontWeight.BOLD,
                     ),
                     ft.Text(
-                        "Guarda imágenes en la galería del dispositivo",
+                        "Save images to the device gallery",
                         size=16,
                         italic=True,
                     ),
                     ft.Divider(),
-                    gallery_saver,  # El control está oculto pero funcional
-                    ft.Container(height=20),  # Espaciador
-                    ft.Row(
+                    ft.Container(height=20),  # Spacer
+                    ft.Column(
                         [btn_save_sample, btn_save_from_url],
                         alignment=ft.MainAxisAlignment.CENTER,
-                        spacing=20,
+                        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                     ),
-                    ft.Container(height=20),  # Espaciador
+                    ft.Container(height=20),  # Spacer
                     status_text,
                 ],
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,

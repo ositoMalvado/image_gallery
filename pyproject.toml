@@ -1,7 +1,7 @@
 [project]
 name = "flet-image-gallery-saver"
 version = "0.1.0"
-description = "FletImageGallerySaver control for Flet"
+description = "ImageGallerySaver control for Flet"
 readme = "README.md"
 requires-python = ">=3.9"
 authors = [
