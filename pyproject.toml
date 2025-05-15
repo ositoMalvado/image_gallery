@@ -8,7 +8,7 @@ authors = [
     { name = "Flet contributors", email = "you@example.com" }
 ]
 dependencies = [
-    "flet>=0.28.2",
+    "flet=0.27.6",
 ]
 
 [project.urls]
@@ -22,14 +22,14 @@ Issues = "https://github.com/ositoMalvado/image-gallery/issues"
 
 [tool.uv]
 dev-dependencies = [
-    "flet[all]==0.28.2",
+    "flet[all]==0.27.6",
     "mkdocs", 
     "mkdocs-material",
     "mkdocstrings[python]"
 ]
 
 [tool.poetry.group.dev.dependencies]
-flet = {extras = ["all"], version = "0.28.2"}
+flet = {extras = ["all"], version = "0.27.6"}
 mkdocs = "*"
 mkdocstrings = { extras = ["python"], version = "*" }
 mkdocs-material = "*"
