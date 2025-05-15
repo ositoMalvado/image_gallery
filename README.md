@@ -1,5 +1,5 @@
 # flet-image-gallery-saver
-FletImageGallerySaver control for Flet
+ImageGallerySaver control for Flet
 
 ## Compatibility
 
