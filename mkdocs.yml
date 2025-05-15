@@ -1,0 +1,7 @@
+site_name: FletImageGallerySaver
+
+theme:
+  name: "material"
+
+plugins:
+  - mkdocstrings

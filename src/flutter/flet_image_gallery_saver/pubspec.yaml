@@ -1,0 +1,21 @@
+name: flet_image_gallery_saver
+description: Flet FletImageGallerySaver control
+repository: https://github.com/MyGithubAccount/flet-image-gallery-saver/src/flutter/flet_image_gallery_saver
+version: 0.1.0
+homepage: https://github.com/MyGithubAccount/flet-image-gallery-saver
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flet: 0.28.2
+  flutter:
+    sdk: flutter
+  image_gallery_saver: ^2.0.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  
