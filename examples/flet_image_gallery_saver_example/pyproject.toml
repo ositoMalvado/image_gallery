@@ -10,7 +10,7 @@ authors = [
 dependencies = [
   "flet-image-gallery-saver",
   "flet>=0.28.2",
-  "pillow>=11.2.1",
+  "pillow>=10.4.0",
 ]
 
 [tool.flet]

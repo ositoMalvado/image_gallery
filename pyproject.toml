@@ -13,9 +13,9 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://mydomain.dev"
-Documentation = "https://github.com/MyGithubAccount/flet-image-gallery-saver"
-Repository = "https://github.com/MyGithubAccount/flet-image-gallery-saver"
-Issues = "https://github.com/MyGithubAccount/flet-image-gallery-saver/issues"
+Documentation = "https://github.com/ositoMalvado/image-gallery"
+Repository = "https://github.com/ositoMalvado/image-gallery"
+Issues = "https://github.com/ositoMalvado/image-gallery/issues"
 
 [tool.setuptools.package-data]
 "flutter.flet_image_gallery_saver" = ["**/*"]
