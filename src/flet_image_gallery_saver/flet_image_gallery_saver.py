@@ -137,7 +137,7 @@ class FletImageGallerySaver(Control):
         if name is not None:
             args["name"] = name
 
-        self._invoke_method("save_image", args)
+        self.invoke_method("save_image", args)
 
     def save_file(self, file_path: str, is_return_path_of_ios: bool = False) -> None:
         """
@@ -152,4 +152,4 @@ class FletImageGallerySaver(Control):
         args["filePath"] = file_path
         args["isReturnPathOfIOS"] = str(is_return_path_of_ios).lower()
 
-        self._invoke_method("save_file", args)
+        self.invoke_method("save_file", args)
